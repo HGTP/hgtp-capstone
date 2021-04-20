@@ -1,0 +1,1 @@
+Each folder has its own specific readme. A generalized overview will be added to this readme in the future.
