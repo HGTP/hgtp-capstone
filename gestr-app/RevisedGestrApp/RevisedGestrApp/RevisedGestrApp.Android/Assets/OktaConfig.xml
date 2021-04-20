@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Okta>
+	<ClientId>INSERT_CLIENT_ID</ClientId>
+	<OktaDomain>INSERT_OKTA_DOMAIN</OktaDomain>
+	<RedirectUri>com.companyname.revisedgestrapp.login:/callback</RedirectUri>
+	<PostLogoutRedirectUri>com.companyname.revisedgestrapp.logout:/callback</PostLogoutRedirectUri>
+</Okta>

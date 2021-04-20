@@ -1,0 +1,228 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "HGTP API",
+    "description": "The API for the HGTP capstone project at the University of Utah",
+    "contact": {
+      "name": "HGTP Capstone Team",
+      "email": "hgtp.capstone@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/liveness": {
+      "get": {
+        "tags": ["Status"],
+        "description": "Returns the API's liveness status",
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/readiness": {
+      "get": {
+        "tags": ["Status"],
+        "description": "Returns the API's readiness status",
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/feature-request/:featureRequestId": {
+      "delete": {
+        "tags": ["Feature Requests"],
+        "description": "Deletes a feature request. Only available to Gestr Admins.",
+        "responses": {
+          "204": {}
+        }
+      }
+    },
+    "/feature-request/vote/:featureRequestId": {
+      "delete": {
+        "tags": ["Feature Requests"],
+        "description": "Removes your vote from a feature request.",
+        "responses": {
+          "204": {}
+        }
+      }
+    },
+    "/feature-request": {
+      "post": {
+        "tags": ["Feature Requests"],
+        "description": "Creates a new feature request",
+        "responses": {
+          "204": {}
+        }
+      },
+      "put": {
+        "tags": ["Feature Requests"],
+        "description": "Updates the status of an existing feature request. Only available to Gestr Admins.",
+        "responses": {
+          "204": {}
+        }
+      }
+    },
+    "/feature-requests": {
+      "get": {
+        "tags": ["Feature Requests"],
+        "description": "Returns all feature requests, optionally filtered by status",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status filter. Valid values are: 'completed', 'planned', 'unplanned'."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FeatureRequest"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feature-request/vote": {
+      "post": {
+        "tags": ["Feature Requests"],
+        "description": "Adds your vote to a feature request.",
+        "responses": {
+          "201": {},
+          "204": {}
+        }
+      }
+    },
+    "/preset/:presetName/:gesture": {
+      "delete": {
+        "tags": ["Gesture Settings"],
+        "description": "Deletes the action associated with the given gesture",
+        "responses": {
+          "204": {}
+        }
+      },
+      "get": {
+        "tags": ["Gesture Settings"],
+        "description": "Returns the given gesture setting",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GestureSetting"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Gesture Settings"],
+        "description": "Updates the given gesture setting",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phoneAction": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/user/gesture-settings": {
+      "get": {
+        "tags": ["Gesture Settings"],
+        "description": "Returns the user's gesture settings for all available presets. The user is determmined through the request auth.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GestureSetting"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FeatureRequest": {
+        "type": "object",
+        "required": [],
+        "properties": {
+          "createdAt": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "requestorId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "votes": {
+            "type": "integer"
+          },
+          "userVotedForThisFeature": {
+            "type": "boolean"
+          }
+        }
+      },
+      "GestureSetting": {
+        "type": "object",
+        "required": ["gesture", "phoneAction"],
+        "properties": {
+          "gesture": {
+            "type": "string"
+          },
+          "phoneAction": {
+            "type": "string"
+          },
+          "presetName": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

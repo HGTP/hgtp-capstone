@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinSample.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="All Samples" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        </Frame>
+
+        <Button Text="Go to Spotify Samples"
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="Center"
+                Clicked="onSpotifyButtonClicked" />
+
+        <Button Text="Go to Texting Samples"
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="Center"
+                Clicked="onSpotifyButtonClicked" />
+        
+    </StackLayout>
+
+</ContentPage>

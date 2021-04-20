@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="RevisedGestrApp.Views.LoginPage"
+             xmlns:vm="clr-namespace:RevisedGestrApp.ViewModels"
+             Shell.NavBarIsVisible="True">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#FFFF</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="70" />
+            <RowDefinition Height="70" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="Start" HorizontalOptions="Fill" Grid.Row="0">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,20,0,20" VerticalOptions="End">
+                    <Image Source="gestr_logo.png" VerticalOptions="Center" HeightRequest="128" />
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout Grid.Row="1" Padding="30,24,30,24" Spacing="10" VerticalOptions="Center">
+            <Label x:Name="WelcomeLabel" VerticalOptions="Center" Text="" IsEnabled="False"/>
+        </StackLayout>
+        <StackLayout Grid.Row="2" Padding="30,24,30,24" Spacing="10" VerticalOptions="Center">
+            <Button x:Name="FAQButton" VerticalOptions="Center" Text="&#xf35d; FAQ" FontFamily="{StaticResource FontAwesomeSolid}" Clicked="OpenFAQClicked"/>
+        </StackLayout>
+        <StackLayout Grid.Row="3" Padding="30,24,30,24" Spacing="10" VerticalOptions="Center">
+            <Button x:Name="LogoutButton" VerticalOptions="Center" Text="Logout" Clicked="OnLogoutClicked"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

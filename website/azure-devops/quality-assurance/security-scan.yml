@@ -1,0 +1,13 @@
+jobs:
+- job: Security_Checks
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - task: SnykSecurityScan@0
+    displayName: Security Scan
+    inputs:
+      serviceConnectionEndpoint: '<INSERT SNYK SECURITY SCAN SERVICE CONNECTION>'
+      testType: 'app'
+      monitorOnBuild: true
+      failOnIssues: false

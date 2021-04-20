@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Copyright 2021 HGTP Capstone Team at the University of Utah: Emma Pinegar, Harrison Quick, Misha Griego, Jacob B. Norgaard
+Licensed under the MIT license. Read the project readme for details.
+-->
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RevisedGestrApp.Views.ViewRoutePage">
+
+
+    <StackLayout  VerticalOptions="Center">
+            <Label Text="Directions" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black" FontSize="Large" FontAttributes="Bold"/>
+
+        <ListView  x:Name="DirectionsListView" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Delete Item" CommandParameter="{Binding .}"/>
+                        </ViewCell.ContextActions>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" MinimumHeightRequest="100">
+                            <Label Text="{Binding html_instructions}" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Medium"/>
+
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+       
+   
+</ContentPage>

@@ -1,0 +1,18 @@
+image: node:latest
+
+stages:
+  - quality_assurance
+
+cache:
+  key: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+
+before_script:
+  - npm ci --cache .npm --prefer-offline --no-audit
+
+unit_tests:
+  stage: quality_assurance
+  tags: 
+    - node
+  script: npm run test:unit

@@ -1,0 +1,39 @@
+version: '3'
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - "8082:3306"
+    networks:
+      hgtp-network:
+        aliases:
+          - db-host
+    volumes:
+      - hgtp-data:/db/data
+      - ./db/init.sql:/db/init.sql
+    command: --init-file /db/init.sql
+
+  api:
+    container_name: hgtp-api
+    restart: always
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - hgtp-network
+    volumes:
+      - .:/api
+    command: npm run migrate-and-start-dev
+    depends_on:
+      - db
+
+volumes: 
+  hgtp-data:
+
+networks:
+  hgtp-network:

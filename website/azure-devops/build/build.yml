@@ -1,0 +1,24 @@
+jobs:
+- job: Build
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - task: Npm@1
+    displayName: 'Install dependencies'
+    inputs:  
+      command: install
+      verbose: false
+
+  - task: Npm@1
+    displayName: 'Build production files'
+    inputs:
+      command: custom
+      customCommand: run build
+      verbose: false
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish production files artifact'
+    inputs:
+      artifactName: gestr-website-files
+      targetPath: '$(System.DefaultWorkingDirectory)/dist'

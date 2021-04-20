@@ -1,0 +1,25 @@
+jobs:
+- job: Unit_Tests
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - task: Npm@1
+    displayName: 'Install dependencies'
+    inputs:  
+      command: install
+      verbose: false
+
+  - task: Npm@1
+    displayName: 'Check linting'
+    inputs:
+      command: custom
+      customCommand: run lint
+      verbose: false
+
+  - task: Npm@1
+    displayName: 'Run tests'
+    inputs:
+      command: custom
+      customCommand: run test:unit
+      verbose: false

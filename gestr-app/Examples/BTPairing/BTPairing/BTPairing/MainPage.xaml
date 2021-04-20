@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:BTPairing.ViewModels;assembly=BTPairing"
+             xmlns:models="clr-namespace:BTPairing.Models;assembly=BTPairing"
+             x:Class="BTPairing.MainPage">
+
+    <ContentPage.BindingContext>
+        <viewModels:BLE_ViewModel/>
+    </ContentPage.BindingContext>
+            <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="BlueTooth Pairing Demo" HorizontalTextAlignment="Center" TextColor="White" FontSize="30"/>
+        </Frame>
+        <Label Text="Scan and Pair!" FontSize="Title" Padding="30,10,30,10"/>
+        <Label Text="Ensure you have BlueTooth enabled on your phone; The current state is reported below." FontSize="16" Padding="30,0,30,0"/>
+        <Label Text="Press the button to scan for BT devices, find your Gestr Device, and press it!" FontSize="16" Padding="30,0,30,0"/>
+        <Label 
+            Text="{Binding BLE_state, StringFormat='BlueTooth State: {0}'}" 
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+        </Label>
+
+        <Button 
+            x:Name="Search_Button"
+            Text="Scan For Devices"
+            BackgroundColor="Orange"
+            HorizontalOptions="Center"
+            WidthRequest="300"
+            Command="{Binding ScanDeviceCommand}"
+            Clicked="OnSearchDevicesButtonClicked"
+                />
+
+        <ListView
+            x:Name="DeviceList"
+            ItemsSource="{Binding Devices}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Button
+                                Text="{Binding DeviceName}"
+                                Command="{Binding Path=ConnectDeviceCommand, Source={viewModels:BLE_ViewModel}}"
+                                CommandParameter="{Binding DeviceName}"
+                                BackgroundColor="DarkSlateGray"
+                                TextColor="MediumVioletRed"
+                                />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

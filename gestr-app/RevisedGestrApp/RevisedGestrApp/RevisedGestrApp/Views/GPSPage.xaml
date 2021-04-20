@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2021 HGTP Capstone Team at the University of Utah: Emma Pinegar, Harrison Quick, Misha Griego, Jacob B. Norgaard
+Licensed under the MIT license. Read the project readme for details.
+-->
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RevisedGestrApp.Views.GPSPage"
+             Title="{Binding Title}">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#FFFF</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Shell.TitleView >
+        <Image Source="gestr_logo_circle_bigger.png" HorizontalOptions="Center" VerticalOptions="Center" Scale=".8"/>
+    </Shell.TitleView>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="70" />
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+   
+        <StackLayout Grid.Row="0" Padding="30,0,30,0" Spacing="10" VerticalOptions="Center">
+            <Label Text="Destination Address" HorizontalOptions="Center"  TextColor="Black" FontSize="Medium"/>
+        </StackLayout>
+        <StackLayout Grid.Row="1"  Padding="10,24,30,0" Spacing="10" VerticalOptions="Center">
+            <Editor x:Name="TextEditor" TextChanged="TextEditor_TextChanged" Text="{Binding GPSDestination}" Placeholder="max 160 characters" AutoSize="TextChanges" MaxLength="160" TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Grid.Row="2" Margin="0,50,0,20" HorizontalOptions="Center" Spacing="10" VerticalOptions="Center">
+            <Label Text="Transportation Mode: "  HorizontalOptions="Center"  TextColor="Black" FontSize="Medium"/>
+        </StackLayout>
+        <StackLayout Grid.Row="3" Spacing="40" HorizontalOptions="Center" RadioButtonGroup.GroupName="modes" Orientation="Horizontal">
+            <RadioButton x:Name="walkButton" Content="Walking"  CheckedChanged="RadioButton_CheckedChanged" />
+            <RadioButton x:Name="transitButton" Content="Transit" CheckedChanged="RadioButton_CheckedChanged" />
+        </StackLayout>
+
+
+        <StackLayout Grid.Row="4" Spacing="30" Orientation="Horizontal" HorizontalOptions="Center"  RadioButtonGroup.GroupName="modes">
+            <RadioButton x:Name="bikeButton" Content="Bicycling"  CheckedChanged="RadioButton_CheckedChanged"/>
+            <RadioButton x:Name="carButton" Content="Driving"  CheckedChanged="RadioButton_CheckedChanged" />
+           
+        </StackLayout>
+        <StackLayout Grid.Row="5" Margin="0,0,0,10" >
+            <Button Text="View Route" x:Name="RouteButton" Margin="30,40,30,0" Clicked="ViewRouteClickedAsync"/>
+        </StackLayout>
+        <StackLayout Grid.Row="6" Margin="0,0,0,10" >
+            <Button Text="Submit" x:Name="SubmitButton"  VerticalOptions="Center" Margin="30,30,30,0" Clicked="OnSubmitClicked"/>
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

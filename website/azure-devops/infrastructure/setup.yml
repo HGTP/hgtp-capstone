@@ -1,0 +1,39 @@
+parameters:
+- name: ENV
+  type: string
+
+jobs:
+- job: Setup_Infrastructure
+  pool:
+    vmImage: 'ubuntu-latest'
+  variables:
+    ENV: ${{ parameters.ENV }}
+    TEMPLATES_DIR: $(System.DefaultWorkingDirectory)/azure-devops/infrastructure/arm-templates
+    LOCATION: '<INSERT_LOCATION>'
+    RESOURCE_GROUP_NAME: '<INSERT_RESOUCE_GROUP_NAME>'
+
+  steps:
+  - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+    displayName: 'Replace tokens in parameters files'
+    inputs:
+      targetFiles: '**/*parameters.json'
+      enableTelemetry: false
+
+  - task: AzureCLI@2
+    displayName: Create Storage Account
+    inputs:
+      azureSubscription: '<INSERT ARM SERVICE CONNECTION>'
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create --resource-group $(RESOURCE_GROUP_NAME) --name storage-account-rollout --mode Incremental --template-file $(TEMPLATES_DIR)/storage-account-template.json --parameters $(TEMPLATES_DIR)/storage-account-parameters.json
+        az storage blob service-properties update --account-name gestrstorage$(ENV) --static-website --404-document index.html --index-document index.html
+
+  - task: AzureCLI@2
+    displayName: Create CDN Profile and Endpoint
+    inputs:
+      azureSubscription: '<INSERT ARM SERVICE CONNECTION>'
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        az deployment group create --resource-group $(RESOURCE_GROUP_NAME) --name cdn-rollout --mode Incremental --template-file $(TEMPLATES_DIR)/cdn-template.json --parameters $(TEMPLATES_DIR)/cdn-parameters.json

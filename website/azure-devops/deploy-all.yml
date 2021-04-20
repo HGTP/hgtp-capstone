@@ -1,0 +1,44 @@
+trigger:
+- master
+
+stages:
+- stage: quality_assurance
+  dependsOn: []
+  jobs:
+  - template: quality-assurance/unit-tests.yml
+  - template: quality-assurance/security-scan.yml
+
+- stage: dev_infrastructure
+  dependsOn:
+  - quality_assurance
+  jobs:
+  - template: infrastructure/setup.yml
+    parameters:
+      ENV: dev
+
+- stage: build
+  dependsOn:
+  - quality_assurance
+  jobs:
+  - template: build/build.yml
+
+- stage: dev_deploy
+  dependsOn:
+  - dev_infrastructure
+  - build
+  jobs:
+  - template: deployment/deploy.yml
+    parameters:
+      ENV: dev
+
+- stage: prod_infrastructure
+  jobs:
+  - template: infrastructure/setup.yml
+    parameters:
+      ENV: prod
+
+- stage: prod_deploy
+  jobs:
+  - template: deployment/deploy.yml
+    parameters:
+      ENV: prod

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:RevisedGestrApp.Views"
+       Title="RevisedGestrApp"
+       x:Class="RevisedGestrApp.AppShell">
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <Tab>
+        <ShellContent Title="Loading" Route="LoadingPage" ContentTemplate="{DataTemplate local:LoadingPage}" />
+    </Tab>
+    <TabBar>
+        <Tab Title="Home" Icon="home.png">
+            <ShellContent Title="Home" Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+        </Tab>
+        <Tab Title="Settings" Icon="settings.png">
+            <ShellContent Title="Gestures" Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}" />
+            <ShellContent Title="Manage Device" Route="DevicePairingPage" ContentTemplate="{DataTemplate local:DevicePairingPage}" />
+            <ShellContent Title="Texts" Route="PredeterminedTextPage" ContentTemplate="{DataTemplate local:PredeterminedTextPage}" />
+            <ShellContent Title="GPS" Route="GPSPage" ContentTemplate="{DataTemplate local:GPSPage}" />
+            <ShellContent Title="SOS Text" Route="SOSContactPage" ContentTemplate="{DataTemplate local:SOSContactPage}"/>
+        </Tab>
+        <Tab Title="Profile" Icon="profile.png">
+            <ShellContent Title="Profile" Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
+        </Tab>
+    </TabBar>
+
+</Shell>

@@ -1,0 +1,36 @@
+parameters:
+- name: ENV
+  type: string
+
+jobs:
+- job: Deployment
+  pool:
+    vmImage: 'ubuntu-latest'
+  variables:
+    RESOURCE_GROUP_NAME: 'hgtp-capstone-${{ parameters.ENV }}'
+
+  steps:
+  - task: DownloadPipelineArtifact@2
+    displayName: Download production files artifact
+    inputs:
+      artifact: gestr-website-files
+      source: current
+      path: $(Build.StagingDirectory)/deployment-files
+
+  - task: AzureCLI@2
+    displayName: Push files to blob
+    inputs:
+      azureSubscription: '<INSERT ARM SERVICE CONNECTION>'
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        az storage blob upload-batch --source $(Build.StagingDirectory)/deployment-files --destination '$web' --account-name gestrstorage${{ parameters.env }}
+
+  - task: AzureCLI@2
+    displayName: Purge CDN profile cache
+    inputs:
+      azureSubscription: '<INSERT ARM SERVICE CONNECTION>'
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        az cdn endpoint purge --resource-group $(RESOURCE_GROUP_NAME) --profile-name uou-cdn-profile-${{ parameters.env }} --name gestrwebsite${{ parameters.env }} --content-paths '/*'

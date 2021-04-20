@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "tags": {
+          "value": {}
+      },
+      "profileName": {
+          "value": "<INSERT_CDN_PROFILE_NAME>-#{ENV}#"
+      },
+      "endpointName": {
+          "value": "<INSERT_CDN_ENDPOINT_NAME>#{ENV}#"
+      },
+      "location": {
+          "value": "Global"
+      },
+      "sku": {
+          "value": {
+              "name": "Standard_Verizon"
+          }
+      },
+      "profileProperties": {
+          "value": {}
+      },
+      "endpointProperties": {
+          "value": {
+              "isHttpAllowed": true,
+              "isHttpsAllowed": true,
+              "originHostHeader": "<INSERT_STORAGE_ACCOUNT_NAME>#{ENV}#.z13.web.core.windows.net",
+              "origins": [
+                  {
+                      "name": "<INSERT_STORAGE_ACCOUNT_NAME>#{ENV}#-z13-web-core-windows-net",
+                      "properties": {
+                          "hostName": "<INSERT_STORAGE_ACCOUNT_NAME>#{ENV}#.z13.web.core.windows.net",
+                          "httpPort": 80,
+                          "httpsPort": 443
+                      }
+                  }
+              ],
+              "isCompressionEnabled": true,
+              "contentTypesToCompress": [
+                  "text/plain",
+                  "text/html",
+                  "text/css",
+                  "text/javascript",
+                  "application/x-javascript",
+                  "application/javascript",
+                  "application/json",
+                  "application/xml"
+              ]
+          }
+      }
+  }
+}

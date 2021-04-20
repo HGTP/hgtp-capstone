@@ -1,0 +1,1 @@
+The certificates are retrieved from Microsoft. Note that there is a change in certificates at some point this year: https://docs.microsoft.com/en-us/azure/security/fundamentals/tls-certificate-changes

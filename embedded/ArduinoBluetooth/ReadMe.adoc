@@ -1,0 +1,29 @@
+:Author: emmapin
+:Email: {AuthorEmail}
+:Date: 21/11/2020
+:Revision: version#
+:License: Public Domain
+
+= Project: {Project}
+
+Arduino Bluetooth, Gesture, and Proximity functionality for HGTP senior project.
+
+== Step 1: Installation
+
+For example:
+
+1. Upload corresponding .zip file to the online Arduino IDE.
+2. Plug in Arduino Nano 33 BLE Sense.
+3. Upload the ArduinoBLuetooth.ino sketch to the Arduino!
+
+=== License
+This project is released under a {License} License.
+
+=== Contributing
+To contribute to this project please contact emmapin https://id.arduino.cc/emmapin
+
+
+=== Help
+This document is written in the _AsciiDoc_ format, a markup language to describe documents.
+If you need help you can search the http://www.methods.co.nz/asciidoc[AsciiDoc homepage]
+or consult the http://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]
